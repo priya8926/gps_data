@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GPS DATA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        a:link {
+            background-color: yellow;
+            text-decoration: none;
+        }
+
+        .tittle {
+            font-size: 300%;
+            text-align: center;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            height: 90px;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .line {
+            background-color: black;
+            margin-top: 9px;
+            height: 11px;
+        }
+
+        p {
+            font-size: 150%;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid black;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 9px;
+        }
+
+        .horizontal-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            background-color: whiite;
+            border: 9px solid black;
+            margin: 0 0 0px;
+            margin: 0 10px 0 10px;
+        }
+
+        .column {
+            flex: 1;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            height: 100%;
+            box-sizing: border-box;
+            border-right: 3px solid black;
+            padding-top: 20px;
+        }
+
+        .horizontal-space {
+            width: 5px;
+        }
+
+        .box2 {
+            border: 9px solid black;
+            height: 470px;
+            margin-top: 9px;
+            margin: 9px 10px;
+        }
+
+        .heading {
+            padding: 10px;
+            font-size: 160%;
+        }
+
+        .box2 {
+            text-align: center;
+        }
+
+        #graph {
+            height: 340px;
+            margin: 20px;
+            border: 1px solid grey;
+
+        }
+
+        .btn {
+            border: 2px solid black;
+            padding: 6px;
+            font-size: 17px;
+            font-weight: bolder;
+            background-color: white;
+        }
+
+        .data {
+            font-size: 20px;
+        }
+
+        .input {
+            border: 2px solid black;
+            padding: 8px;
+            font-size: 15px;
+        }
+        .btn:hover{
+            text-decoration: underline;
+            cursor: pointer;
+            color:blue
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="tittle">VARTIX AEROSPACE</h1>
+    </div>
+    <div class="line"></div>
+
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+
+    <body>
+        <div class="box">
+            <div class="horizontal-box">
+                <div class="column">Latitude
+                </div>
+                <div class="column">lat_str
+                </div>
+            </div>
+            <div class="horizontal-space"></div>
+            <div class="horizontal-box">
+                <div class="column">
+                    Longitude
+                </div>
+                <div class="column">
+                    lng_str
+                </div>
+            </div>
+        </div>
+        <div class="box2">
+
+            <h1 class="heading">Graph</h1>
+            <form onsubmit="generateGraph(event)">
+                <label for="inputData" class="data">Enter data:</label>
+                <input type="text" id="inputData" class="input" required>
+                <button type="submit" class="btn">Generate Graph</button>
+            </form>
+            <div id="graph"></div>
+        </div>
+        <script>
+            function generateGraph(event) {
+                event.preventDefault();
+
+                var input = document.getElementById('inputData').value;
+                var data = input.split(',').map(Number);
+
+                var graphContainer = document.getElementById('graph');
+                graphContainer.innerHTML = '';
+
+                var canvas = document.createElement('canvas');
+                canvas.width = graphContainer.offsetWidth;
+                canvas.height = graphContainer.offsetHeight;
+                graphContainer.appendChild(canvas);
+
+                var ctx = canvas.getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: data.length }, (_, i) => i + 1),
+                        datasets: [{
+                            label: 'Data',
+                            data: data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </body>
+
+    </html>
